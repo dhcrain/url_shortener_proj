@@ -15,7 +15,17 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from django.contrib.auth.views import login, logout
+
+from short_app import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^$', views.IndexView.as_view(), name='index_view'),
+    url(r'^signup/$', views.SignUpView.as_view(), name='sign_up_view'),
+    url(r'^login/$', login, name='login_view'),     # https://docs.djangoproject.com/en/1.9/topics/auth/default/#how-to-log-a-user-in
+    url(r'^logout/$', logout, {'next_page': 'index_view'}, name='logout_view'),
+    url(r'^accounts/profile/$', views.ProfileView.as_view(), name='profile_view'),
+    # url(r'^d/(?P<hash_id>\w+)', views.ForwardView.as_view(), name='forward_view'),
+
 ]

@@ -1,0 +1,36 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'short_app/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'short_app/css/main.css' %}">
+</head>
+<body>
+    {# MenuBar #}
+    <ul class="nav nav-tabs">
+{#        {% if request.user.is_authenticated %}#}
+{#        {% endif %}#}
+        <li role="presentation"><a href="{% url 'index_view' %}">Home</a></li>
+        <li role="presentation"><a href="{% url 'sign_up_view' %}">Sign Up</a></li>
+        <li role="presentation"><a href="{% url 'profile_view' %}">Profile</a></li>
+        <li role="presentation"><a href="{% url 'login_view' %}">Log In</a></li>
+        <li role="presentation"><a href="{% url 'logout_view' %}">Log Out</a></li>
+
+    </ul>
+
+    {% block content %}
+        default
+    {% endblock %}
+    {# footer #}
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{% static 'short_app/js/bootstrap.min.js' %}"></script>
+</body>
+</html>
