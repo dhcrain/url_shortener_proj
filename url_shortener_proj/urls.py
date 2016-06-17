@@ -26,6 +26,7 @@ urlpatterns = [
     url(r'^login/$', login, name='login_view'),     # https://docs.djangoproject.com/en/1.9/topics/auth/default/#how-to-log-a-user-in
     url(r'^logout/$', logout, {'next_page': 'index_view'}, name='logout_view'),
     url(r'^accounts/profile/$', views.ProfileView.as_view(), name='profile_view'),
+    url(r'^shorten_link/$', views.ShortenLink.as_view(), name='shorten_link')
     # url(r'^d/(?P<hash_id>\w+)', views.ForwardView.as_view(), name='forward_view'),
 
 ]

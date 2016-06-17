@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Short it up{% endblock %}
+
+{% block content %}
+    <h1 class="text-center">Shorten a Link</h1>
+    <div class="">
+        <form action="" method="post" class="">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Sign Up">
+        </form>
+    </div>
+{% endblock %}

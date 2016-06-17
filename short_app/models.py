@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
-
+from hashids import Hashids
 # Create your models here.
 
 
