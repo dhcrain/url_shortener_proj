@@ -6,3 +6,4 @@ from short_app.models import Click, Bookmark
 
 admin.site.register(Bookmark)
 admin.site.register(Click)
+# admin.site.register(Hash)
