@@ -16,10 +16,11 @@
     {# MenuBar #}
     <ul class="nav nav-tabs">
         <li role="presentation"><a href="{% url 'index_view' %}">Home</a></li>
+        <li role="presentation"><a href="{% url 'bookmark_view' %}">All Bookmarks</a></li>
         {% if request.user.is_authenticated %}
-            <li role="presentation"><a href="{% url 'logout_view' %}">Log Out</a></li>
-            <li role="presentation"><a href="{% url 'profile_view' %}">Profile</a></li>
+            <li role="presentation"><a href="{% url 'profile_view' %}">Your Links</a></li>
             <li role="presentation"><a href="{% url 'shorten_link' %}">Shorten Link</a></li>
+            <li role="presentation"><a href="{% url 'logout_view' %}">Log Out</a></li>
             <li role="presentation" class="disabled"><a href="#">Welcome {{ request.user }}</a></li>
         {% else %}
             <li role="presentation"><a href="{% url 'sign_up_view' %}">Sign Up</a></li>

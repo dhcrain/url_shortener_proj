@@ -1,15 +1,12 @@
 import datetime
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
-from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.http import HttpResponseRedirect, Http404
-from django.shortcuts import render
 from django.views.generic import TemplateView, CreateView, RedirectView, UpdateView, ListView, DeleteView
 from hashids import Hashids
-
 from short_app.models import Bookmark, Click
 
 
@@ -23,10 +20,15 @@ class SignUpView(CreateView):
     success_url = '/login/'
 
 
-# @login_required(redirect_field_name='login_view')
-class ProfileView(ListView):        # ListView ?
+class ProfileView(LoginRequiredMixin, ListView):
     template_name = 'profile.html'
     model = Bookmark
+
+    def get_context_data(self, **kwargs):
+        # user_id = self.kwargs.get('user', None)  # gets Bookmark PK
+        context = super().get_context_data(**kwargs)  # I have no idea what this does
+        context["bookmark"] = Bookmark.objects.filter(user_id=self.request.user)
+        return context
 
 
 class ShortenLink(CreateView):
@@ -55,14 +57,14 @@ class ForwardView(RedirectView):
         return super(ForwardView, self).get(request, args, **kwargs)
 
 
-class EditBookmark(UpdateView):
+class EditBookmark(LoginRequiredMixin, UpdateView):
     model = Bookmark
     fields = ['title', 'description', 'url']
     success_url = '/accounts/profile/'
     template_name = 'update.html'
 
 
-class LinkDelete(DeleteView):
+class LinkDelete(LoginRequiredMixin, DeleteView):
     model = Bookmark
     success_url = '/accounts/profile/'
 
@@ -74,11 +76,8 @@ class LinkDelete(DeleteView):
         self.hashid = hashid
         return link
 
-    # def get_success_url(self):
-    #     return reverse('/profile/')        # error here
 
-
-class ClickView(TemplateView):
+class ClickView(LoginRequiredMixin, TemplateView):
     model = Click
     template_name = "short_app/click_list.html"
 
@@ -86,5 +85,9 @@ class ClickView(TemplateView):
         bookmark_pk = self.kwargs.get('pk', None)      # gets Bookmark PK
         context = super().get_context_data(**kwargs)    # I have no idea what this does
         context["bookmark"] = Bookmark.objects.get(id=bookmark_pk)
-        context["clicks"] = Click.objects.filter(id=bookmark_pk)
+        context["clicks"] = Click.objects.filter(link=bookmark_pk)
         return context
+
+
+class BookmarkView(ListView):
+    model = Bookmark

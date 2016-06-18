@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Your Saved Bookmarks</h1>
+    <h1>All Saved Bookmarks</h1>
     <table class="table table-condensed">
         <tr>
             <th>Title</th>
@@ -16,14 +16,12 @@
             <th></th>
             <th></th>
         </tr>
-    {% for mark in bookmark %}
+    {% for mark in object_list %}
         <tr>
             <td>{{ mark.title }}</td>
             <td><a href="{% url 'forward_view' mark.hash_id %}" target="_blank" >{{ mark.url }}</a></td>
             <td><input type="text" value="{{ request.get_host }}{% url 'forward_view' mark.hash_id %}"></td>
             <td><a href="{% url 'click_view' mark.id %}">{{ mark.count }}</a></td>
-            <td><a class="btn" href="{% url 'edit_bookmark_view' mark.id %}">Edit</a></td>
-            <td><a class="btn btn-danger" href="{% url 'delete_bookmark_view' mark.id %}">Delete</a></td>
         </tr>
     {% endfor %}
     </table>

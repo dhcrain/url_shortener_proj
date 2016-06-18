@@ -6,18 +6,22 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Profile page</h1>
-    <table class="table table-condensed">
+    <h1>Click history for {{ bookmark.title }}</h1>
+    <div class="row"></div>
+    <div class="col-md-4">
+    <p>{{ bookmark.url }}<br>
+        {{ request.get_host }}{% url 'forward_view' bookmark.hash_id %}</p>
+    <table class="table table-condensed col-md-4">
         <tr>
             <th>Time Clicked</th>
-            <td>{{ bookmark.title }}</td>
-            <td>{{ clicks }}</td>
         </tr>
-
     {% for click in clicks %}
         <tr>
             <td>{{ click.time_click }}</td>
         </tr>
     {% endfor %}
     </table>
+    <div class="col-md-4"></div>
+    </div>
+    </div>
 {% endblock %}

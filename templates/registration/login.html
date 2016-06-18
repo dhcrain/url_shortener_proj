@@ -6,7 +6,7 @@
 {% block content %}
     <h1 class="text-center">Log In</h1>
     <div class="form-bg text-center">
-    <form action="{% url 'profile_view' %}" method="post">
+    <form action="" method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Log In">
