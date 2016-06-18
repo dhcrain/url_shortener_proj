@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Short it up{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+    <h1>Profile page</h1>
+    <table class="table table-condensed">
+        <tr>
+            <th>Time Clicked</th>
+        </tr>
+    {% for click in object_list %}
+        <tr>
+            <td>{{ click.time_click }}</td>
+            <td>{{ bookmark.url }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endblock %}

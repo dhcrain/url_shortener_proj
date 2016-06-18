@@ -3,7 +3,6 @@
 {% block title %}Short it up{% endblock %}
 
 {% block head %}
-
 {% endblock %}
 
 {% block content %}
@@ -21,11 +20,9 @@
         <tr>
             <td>{{ mark.title }}</td>
             <td><a href="{{ mark.url }}">{{ mark.url }}</a></td>
-            <td>
-                <input type="text" value="{{ request.get_host }}{% url 'forward_view' mark.hash_id %}">
-            </td>
-            <td>{{ mark.count }}</td>
-            <td><a href="{% url 'edit_bookmark_view' mark.id %}">Edit</a></td>
+            <td><input type="text" value="{{ request.get_host }}{% url 'forward_view' mark.hash_id %}"></td>
+            <td><a href="{% url 'click_view' mark.id %}">{{ mark.count }}</a></td>
+            <td><a class="btn" href="{% url 'edit_bookmark_view' mark.id %}">Edit</a></td>
             <td><a class="btn btn-danger" href="{% url 'delete_bookmark_view' mark.id %}">Delete</a></td>
         </tr>
     {% endfor %}

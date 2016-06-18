@@ -1,3 +1,4 @@
+import datetime
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -22,7 +23,7 @@ class SignUpView(CreateView):
     success_url = '/login/'
 
 
-# @login_required()
+# @login_required(redirect_field_name='login_view')
 class ProfileView(ListView):        # ListView ?
     template_name = 'profile.html'
     model = Bookmark
@@ -42,13 +43,15 @@ class ShortenLink(CreateView):
 
 
 class ForwardView(RedirectView):
-
-    # record click and incriment the count on the Bookmark table
+    # record click and increment the count on the Bookmark table
 
     def get(self, request, *args, **kwargs):
         hash_id = self.kwargs.get('hash_id', None)      # gets hash_id
         link = Bookmark.objects.get(hash_id=hash_id)    # looks up the link from the hash_id
         self.url = '{}'.format(link.url)
+        link.count += 1
+        link.save()
+        Click.objects.create(link=link, time_click=datetime.datetime.now())
         return super(ForwardView, self).get(request, args, **kwargs)
 
 
@@ -73,3 +76,12 @@ class LinkDelete(DeleteView):
 
     # def get_success_url(self):
     #     return reverse('/profile/')        # error here
+
+
+class ClickView(ListView):
+    model = Click
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["bookmark"] = Bookmark.objects.filter()
+        return context

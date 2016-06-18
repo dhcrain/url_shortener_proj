@@ -21,7 +21,7 @@ class Bookmark(models.Model):
 
 class Click(models.Model):
     link = models.ForeignKey(Bookmark)
-    time_click = models.DateTimeField(auto_now_add=True)
+    time_click = models.DateTimeField()
 
     class Meta:
         ordering = ["-time_click"]
