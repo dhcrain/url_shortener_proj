@@ -10,7 +10,8 @@ from hashids import Hashids
 from short_app.models import Bookmark, Click
 
 
-class IndexView(TemplateView):
+class IndexView(ListView):
+    model = Bookmark
     template_name = 'index.html'
 
 
@@ -77,7 +78,7 @@ class LinkDelete(LoginRequiredMixin, DeleteView):
         return link
 
 
-class ClickView(LoginRequiredMixin, TemplateView):
+class ClickView(TemplateView):
     model = Click
     template_name = "short_app/click_list.html"
 

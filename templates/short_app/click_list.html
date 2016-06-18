@@ -7,21 +7,22 @@
 
 {% block content %}
     <h1>Click history for {{ bookmark.title }}</h1>
-    <div class="row"></div>
-    <div class="col-md-4">
-    <p>{{ bookmark.url }}<br>
-        {{ request.get_host }}{% url 'forward_view' bookmark.hash_id %}</p>
-    <table class="table table-condensed col-md-4">
-        <tr>
-            <th>Time Clicked</th>
-        </tr>
-    {% for click in clicks %}
-        <tr>
-            <td>{{ click.time_click }}</td>
-        </tr>
-    {% endfor %}
-    </table>
-    <div class="col-md-4"></div>
-    </div>
-    </div>
+            <a href="{% url 'forward_view' bookmark.hash_id %}" target="_blank" >{{ bookmark.url }}</a>
+            <br>
+            <br>
+            <a href="{% url 'forward_view' bookmark.hash_id %}">{{ request.get_host }}{% url 'forward_view' bookmark.hash_id %}</a>
+            <br>
+            <br>
+                <table class="table table-condensed">
+                    <tr>
+                        <th>Time Clicked</th>
+                    </tr>
+                {% for click in clicks %}
+                    <tr>
+                        <td>{{ click.time_click }}</td>
+                    </tr>
+                {% endfor %}
+                </table>
+            <div class="col-md-4">
+
 {% endblock %}

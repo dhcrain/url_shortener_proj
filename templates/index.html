@@ -4,4 +4,22 @@
 
 {% block content %}
     <h1>Short it up!</h1>
-{% endblock %}
+    <hr>
+    <h2>All Saved Bookmarks</h2>
+    <table class="table table-condensed">
+        <tr>
+            <th>Title</th>
+            <th>Original Link</th>
+            <th>Short Link</th>
+            <th>Click Hist</th>
+        </tr>
+    {% for mark in object_list %}
+        <tr>
+            <td>{{ mark.title }}</td>
+            <td><a href="{% url 'forward_view' mark.hash_id %}" target="_blank" >{{ mark.url }}</a></td>
+            <td><input type="text" value="{{ request.get_host }}{% url 'forward_view' mark.hash_id %}"></td>
+            <td><a href="{% url 'click_view' mark.id %}">{{ mark.count }}</a></td>
+        </tr>
+    {% endfor %}
+    {% endblock %}
+
