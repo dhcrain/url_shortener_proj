@@ -29,7 +29,7 @@ urlpatterns = [
     url(r'^accounts/profile/edit_link/(?P<pk>\d+)/delete/$', views.LinkDelete.as_view(), name='delete_bookmark_view'),
     url(r'^accounts/profile/edit_link/(?P<pk>\d+)/$', views.EditBookmark.as_view(), name='edit_bookmark_view'),
     url(r'^shorten_link/$', views.ShortenLink.as_view(), name='shorten_link'),
-    url(r'^shorten_link/hashed_link/$', views.HashedLink.as_view(), name='hashed_link'),
+    # url(r'^shorten_link/hashed_link/$', views.HashedLink.as_view(), name='hashed_link'),
     url(r'^d/(?P<hash_id>\w+)', views.ForwardView.as_view(), name='forward_view'),     # http://ccbv.co.uk/projects/Django/1.9/django.views.generic.base/RedirectView/
 
 ]

@@ -9,18 +9,22 @@
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'short_app/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'short_app/css/main.css' %}">
+    {% block head %}
+    {% endblock %}
 </head>
 <body>
     {# MenuBar #}
     <ul class="nav nav-tabs">
-{#        {% if request.user.is_authenticated %}#}
-{#        {% endif %}#}
         <li role="presentation"><a href="{% url 'index_view' %}">Home</a></li>
-        <li role="presentation"><a href="{% url 'sign_up_view' %}">Sign Up</a></li>
-        <li role="presentation"><a href="{% url 'profile_view' %}">Profile</a></li>
-        <li role="presentation"><a href="{% url 'shorten_link' %}">Shorten Link</a></li>
-        <li role="presentation"><a href="{% url 'login_view' %}">Log In</a></li>
-        <li role="presentation"><a href="{% url 'logout_view' %}">Log Out</a></li>
+        {% if request.user.is_authenticated %}
+            <li role="presentation"><a href="{% url 'logout_view' %}">Log Out</a></li>
+            <li role="presentation"><a href="{% url 'profile_view' %}">Profile</a></li>
+            <li role="presentation"><a href="{% url 'shorten_link' %}">Shorten Link</a></li>
+            <li role="presentation" class="disabled"><a href="#">Welcome {{ request.user }}</a></li>
+        {% else %}
+            <li role="presentation"><a href="{% url 'sign_up_view' %}">Sign Up</a></li>
+            <li role="presentation"><a href="{% url 'login_view' %}">Log In</a></li>
+        {% endif %}
 
     </ul>
     <div class="container">
@@ -31,8 +35,8 @@
     {# footer #}
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-{#    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>#}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-{#    <script src="{% static 'short_app/js/bootstrap.min.js' %}"></script>#}
+    <script src="{% static 'short_app/js/bootstrap.min.js' %}"></script>
 </body>
 </html>

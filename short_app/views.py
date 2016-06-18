@@ -19,7 +19,7 @@ class IndexView(TemplateView):
 class SignUpView(CreateView):
     model = User
     form_class = UserCreationForm
-    success_url = '/'
+    success_url = '/login/'
 
 
 # @login_required()
@@ -31,7 +31,7 @@ class ProfileView(ListView):        # ListView ?
 class ShortenLink(CreateView):
     model = Bookmark
     fields = ['title', 'description', 'url']
-    success_url = 'hashed_link'
+    success_url = 'accounts/profile/'
 
     def form_valid(self, form):
         hashids = Hashids(salt="yabbadabbadooo")
@@ -41,23 +41,15 @@ class ShortenLink(CreateView):
         return super(ShortenLink, self).form_valid(form)
 
 
-class HashedLink(TemplateView):     # changed the url to pass the id in the get the hash?
-    template_name = 'hashed_link.html'
+class ForwardView(RedirectView):
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["hash"] = Bookmark.objects.all()
-        return context
+    # record click and incriment the count on the Bookmark table
 
-
-class ForwardView(RedirectView):    # Needs work !
-
-    permanent = False
-
-    def get_redirect_url(self, *args, **kwargs):
-        # short_url = kwargs["hash_id"]
-        return HttpResponseRedirect(Bookmark.objects.get(hash_id=Bookmark.hash_id).url)
-            # Bookmark.expand(short_url)
+    def get(self, request, *args, **kwargs):
+        hash_id = self.kwargs.get('hash_id', None)      # gets hash_id
+        link = Bookmark.objects.get(hash_id=hash_id)    # looks up the link from the hash_id
+        self.url = '{}'.format(link.url)
+        return super(ForwardView, self).get(request, args, **kwargs)
 
 
 class EditBookmark(UpdateView):

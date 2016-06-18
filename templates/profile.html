@@ -2,16 +2,31 @@
 
 {% block title %}Short it up{% endblock %}
 
+{% block head %}
+
+{% endblock %}
+
 {% block content %}
     <h1>Profile page</h1>
     <table class="table table-condensed">
+        <tr>
+            <th>Title</th>
+            <th>Original Link</th>
+            <th>Short Link</th>
+            <th>Count</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
     {% for mark in object_list %}
         <tr>
             <td>{{ mark.title }}</td>
             <td><a href="{{ mark.url }}">{{ mark.url }}</a></td>
-            <td><a href="{% url 'forward_view' mark.hash_id %}">{{ mark.hash_id }}</a></td>
-            <td><a href="{% url 'edit_bookmark_view' mark.id %}">Edit your link</a></td>
-            <td><a href="{% url 'delete_bookmark_view' mark.id %}">Delete</a></td>
+            <td>
+                <input type="text" value="{{ request.get_host }}{% url 'forward_view' mark.hash_id %}">
+            </td>
+            <td>{{ mark.count }}</td>
+            <td><a href="{% url 'edit_bookmark_view' mark.id %}">Edit</a></td>
+            <td><a class="btn btn-danger" href="{% url 'delete_bookmark_view' mark.id %}">Delete</a></td>
         </tr>
     {% endfor %}
     </table>
