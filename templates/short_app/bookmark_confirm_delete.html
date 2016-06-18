@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}{{object.title}} Confirm delete?{% endblock %}
+
+{% block content %}
+    <h1 class="text-center">Do you Really want to delete?</h1>
+    <div class="container">
+        <div class="text-center">
+            <h3>Are you sure?</h3>
+            <p>You're about to delete {{ object }}. <br>Please confirm.</p>
+            <form action="" method="post">
+                {% csrf_token %}
+                <input class="btn btn-link" type="button" value="Cancel" onclick="window.history.go(-1);"/>
+                <input class="btn btn-danger" type="submit" value="Confirm"/>
+            </form>
+        </div>
+    </div>
+{% endblock %}
