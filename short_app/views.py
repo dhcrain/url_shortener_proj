@@ -32,7 +32,7 @@ class ProfileView(ListView):        # ListView ?
 class ShortenLink(CreateView):
     model = Bookmark
     fields = ['title', 'description', 'url']
-    success_url = 'accounts/profile/'
+    success_url = '/accounts/profile/'
 
     def form_valid(self, form):
         hashids = Hashids(salt="yabbadabbadooo")
@@ -48,7 +48,7 @@ class ForwardView(RedirectView):
     def get(self, request, *args, **kwargs):
         hash_id = self.kwargs.get('hash_id', None)      # gets hash_id
         link = Bookmark.objects.get(hash_id=hash_id)    # looks up the link from the hash_id
-        self.url = '{}'.format(link.url)
+        self.url = link.url
         link.count += 1
         link.save()
         Click.objects.create(link=link, time_click=datetime.datetime.now())
@@ -78,10 +78,13 @@ class LinkDelete(DeleteView):
     #     return reverse('/profile/')        # error here
 
 
-class ClickView(ListView):
+class ClickView(TemplateView):
     model = Click
+    template_name = "short_app/click_list.html"
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["bookmark"] = Bookmark.objects.filter()
+        bookmark_pk = self.kwargs.get('pk', None)      # gets Bookmark PK
+        context = super().get_context_data(**kwargs)    # I have no idea what this does
+        context["bookmark"] = Bookmark.objects.get(id=bookmark_pk)
+        context["clicks"] = Click.objects.filter(id=bookmark_pk)
         return context

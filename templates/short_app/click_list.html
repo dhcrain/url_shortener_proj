@@ -10,11 +10,13 @@
     <table class="table table-condensed">
         <tr>
             <th>Time Clicked</th>
+            <td>{{ bookmark.title }}</td>
+            <td>{{ clicks }}</td>
         </tr>
-    {% for click in object_list %}
+
+    {% for click in clicks %}
         <tr>
             <td>{{ click.time_click }}</td>
-            <td>{{ bookmark.url }}</td>
         </tr>
     {% endfor %}
     </table>
