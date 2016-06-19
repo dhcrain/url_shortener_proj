@@ -7,24 +7,32 @@
 
 {% block content %}
     <h1>Your Saved Bookmarks</h1>
-    <table class="table table-condensed">
+    <table class="table table-condensed sm-row-3">
         <tr>
             <th>Title</th>
             <th>Original Link</th>
             <th>Short Link</th>
             <th>Click Hist</th>
+            {% if request.user.is_authenticated %}
             <th></th>
             <th></th>
+            {% endif %}
         </tr>
     {% for mark in bookmark %}
         <tr>
             <td>{{ mark.title }}</td>
             <td><a href="{% url 'forward_view' mark.hash_id %}" target="_blank" >{{ mark.url }}</a></td>
-            <td><input type="text" value="{{ request.get_host }}{% url 'forward_view' mark.hash_id %}"></td>
+            <td>
+                <input class="copy-text" type="text" id="website" value="http://{{ request.get_host }}{% url 'forward_view' mark.hash_id %}" />
+                <button class="copy-btn" data-copytarget="#website">copy</button>
+            </td>
             <td><a href="{% url 'click_view' mark.id %}">{{ mark.count }}</a></td>
+            {% if request.user.is_authenticated %}
             <td><a class="btn" href="{% url 'edit_bookmark_view' mark.id %}">Edit</a></td>
             <td><a class="btn btn-danger" href="{% url 'delete_bookmark_view' mark.id %}">Delete</a></td>
+            {% endif %}
         </tr>
     {% endfor %}
     </table>
 {% endblock %}
+

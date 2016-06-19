@@ -1,0 +1,35 @@
+body {
+    padding-top: 60px;
+    background-color: #F9F9F9;
+}
+/*Copy text sections*/
+.copy-text, .copy-btn {
+  float: left;
+  font-size: 1em;
+  padding: 3px 6px;
+  margin: 0;
+  border: 1px solid #333;
+  outline: 0;
+  box-shadow: none;
+}
+::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+.copy-text {
+  width: 11em;
+  border-right: 0 none;
+  border-radius: 3px 0 0 3px;
+}
+.copy-btn {
+  position: relative;
+  background-color: #aaa;
+  border-radius: 0 3px 3px 0;
+  cursor: pointer;
+}
+/*end copy section*/
+.sm-row-3 tr td:nth-child(3) {
+    width: 250px;
+    table-layout: fixed;
+    word-wrap: break-word;
+}

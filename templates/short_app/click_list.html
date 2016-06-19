@@ -6,13 +6,21 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Click history for {{ bookmark.title }}</h1>
-            <a href="{% url 'forward_view' bookmark.hash_id %}" target="_blank" >{{ bookmark.url }}</a>
-            <br>
-            <br>
-            <a href="{% url 'forward_view' bookmark.hash_id %}">{{ request.get_host }}{% url 'forward_view' bookmark.hash_id %}</a>
-            <br>
-            <br>
+    <h1><small>Click history for</small> {{ bookmark.title }}</h1>
+
+    <table class="table table-bordered">
+    <tr>
+        <th>Original Link:</th>
+        <th>Short Link:</th>
+        <th>Description:</th>
+    </tr>
+    <tr>
+        <td><a href="{% url 'forward_view' bookmark.hash_id %}" target="_blank" >{{ bookmark.url }}</a></td>
+        <td><a href="{% url 'forward_view' bookmark.hash_id %}" target="_blank">{{ request.get_host }}{% url 'forward_view' bookmark.hash_id %}</a></td>
+        <td>{{ bookmark.description }}</td>
+    </tr>
+    </table>
+
                 <table class="table table-condensed">
                     <tr>
                         <th>Time Clicked</th>
@@ -23,6 +31,4 @@
                     </tr>
                 {% endfor %}
                 </table>
-            <div class="col-md-4">
-
 {% endblock %}

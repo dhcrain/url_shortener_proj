@@ -3,12 +3,17 @@
 {% block title %}Sign Up{% endblock %}
 
 {% block content %}
-<h1 class="text-center">Create a user</h1>
-<div class="">
-    <form action="" method="post" class="text-center">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Sign Up">
-    </form>
-</div>
+    <h1 class="text-center">Create a new user</h1>
+        <br>
+    <div class="row">
+        <div class=" col-md-4 col-md-offset-4">
+            <form action="" method="post" class="text-center">
+                {% csrf_token %}
+                <table class="table table-bordered">
+                {{ form.as_table }}
+                </table>
+                <input class="btn btn-default" type="submit" value="Sign Up">
+            </form>
+        </div>
+    </div>
 {% endblock %}

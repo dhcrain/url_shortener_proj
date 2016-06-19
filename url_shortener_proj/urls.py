@@ -26,11 +26,12 @@ urlpatterns = [
     url(r'^login/$', login, name='login_view'),     # https://docs.djangoproject.com/en/1.9/topics/auth/default/#how-to-log-a-user-in
     url(r'^logout/$', logout, {'next_page': 'index_view'}, name='logout_view'),
     # url(r'^all_bookmarks/$', views.BookmarkView.as_view(), name='bookmark_view'),
+    url(r'^users/$', views.UserView.as_view(), name='user_view'),
     url(r'^accounts/profile/$', views.ProfileView.as_view(), name='profile_view'),
     url(r'^accounts/profile/hist/(?P<pk>\d+)$', views.ClickView.as_view(), name='click_view'),
     url(r'^accounts/profile/edit_link/(?P<pk>\d+)/$', views.EditBookmark.as_view(), name='edit_bookmark_view'),
     url(r'^accounts/profile/edit_link/(?P<pk>\d+)/delete/$', views.LinkDelete.as_view(), name='delete_bookmark_view'),
     url(r'^shorten_link/$', views.ShortenLink.as_view(), name='shorten_link'),
-    url(r'^d/(?P<hash_id>\w+)', views.ForwardView.as_view(), name='forward_view'),     # http://ccbv.co.uk/projects/Django/1.9/django.views.generic.base/RedirectView/
+    url(r'^d/(?P<hash_id>\w+)', views.ForwardView.as_view(), name='forward_view'),
 
 ]

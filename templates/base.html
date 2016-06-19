@@ -14,14 +14,14 @@
 </head>
 <body>
     {# MenuBar #}
-    <ul class="nav nav-tabs">
+    <ul class="nav nav-tabs navbar-fixed-top">
         <li role="presentation"><a href="{% url 'index_view' %}">Home</a></li>
 {#        <li role="presentation"><a href="{% url 'bookmark_view' %}">All Bookmarks</a></li>#}
         {% if request.user.is_authenticated %}
             <li role="presentation"><a href="{% url 'profile_view' %}">Your Bookmarks</a></li>
             <li role="presentation"><a href="{% url 'shorten_link' %}">Bookmark a Link</a></li>
             <li role="presentation"><a href="{% url 'logout_view' %}">Log Out</a></li>
-            <li role="presentation" class="disabled"><a href="#">Welcome {{ request.user }}</a></li>
+            <li role="presentation" class="disabled pull-right"><a href="#">Welcome {{ request.user }}</a></li>
         {% else %}
             <li role="presentation"><a href="{% url 'sign_up_view' %}">Sign Up</a></li>
             <li role="presentation"><a href="{% url 'login_view' %}">Log In</a></li>
@@ -33,11 +33,13 @@
         default
     {% endblock %}
     </div>
-    {# footer #}
 
+    {% block javascript %}
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="{% static 'short_app/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'short_app/js/main.js' %}"></script>
+    {% endblock %}
 </body>
 </html>
