@@ -13,6 +13,8 @@
             <th>Original Link</th>
             <th>Short Link</th>
             <th>Click Hist</th>
+            <td></td>
+            <td></td>
         </tr>
     {% for mark in object_list %}
         <tr>
@@ -23,6 +25,13 @@
                 <button class="copy-btn" data-copytarget="#website">copy</button>
             </td>
             <td><a href="{% url 'click_view' mark.id %}">{{ mark.count }}</a></td>
+            {% if mark.user = request.user %}
+                <td><a class="btn" href="{% url 'edit_bookmark_view' mark.id %}">Edit</a></td>
+                <td><a class="btn btn-danger" href="{% url 'delete_bookmark_view' mark.id %}">Delete</a></td>
+            {% else %}
+                <td><a href="{% url 'user_profile_view' mark.user.id %}">{{ mark.user }}</a></td>
+                <td></td>
+            {% endif %}
         </tr>
     {% endfor %}
     </table>

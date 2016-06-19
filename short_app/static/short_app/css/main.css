@@ -5,7 +5,12 @@ body {
 .nav {
     background-color: #F9F9F9;
 }
-
+input {
+    width: 306.4px;
+}
+.center-div {
+    margin: 0 auto;
+}
 /* Copy text * style https://www.sitepoint.com/javascript-copy-to-clipboard/ */
 .copy-text, .copy-btn {
   float: left;

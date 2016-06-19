@@ -46,11 +46,7 @@ class ShortenLink(CreateView):
         hashids = Hashids(salt="yabbadabbadooo")
         bookmark = form.save(commit=False)
         bookmark.hash_id = hashids.encode(id(bookmark.url))
-        # allows unregisted users to shorten a link, assigned to 'webuser' id=6, this seems a little hacky
-        if self.request.user.is_authenticated():
-            bookmark.user = self.request.user
-        else:
-            bookmark.user = User.objects.get(id=6)
+        bookmark.user = self.request.user
         return super(ShortenLink, self).form_valid(form)
 
 
@@ -69,7 +65,7 @@ class ForwardView(RedirectView):
 
 class EditBookmark(LoginRequiredMixin, UpdateView):
     model = Bookmark
-    fields = ['title', 'description', 'url']
+    fields = ['title', 'url', 'description']
     success_url = '/accounts/profile/'
     template_name = 'update.html'
 
@@ -77,7 +73,6 @@ class EditBookmark(LoginRequiredMixin, UpdateView):
 class LinkDelete(LoginRequiredMixin, DeleteView):
     model = Bookmark
     success_url = '/accounts/profile/'
-    permission_denied_message = 'Sorry only the Bookmarks creator can edit this'
 
     def get_object(self, queryset=None):
         link = super(LinkDelete, self).get_object()

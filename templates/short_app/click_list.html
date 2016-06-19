@@ -17,7 +17,7 @@
     <tr>
         <td><a href="{% url 'forward_view' bookmark.hash_id %}" target="_blank" >{{ bookmark.url }}</a></td>
         <td>
-            <input class="copy-text" type="text" id="website" value="http://{{ request.get_host }}{% url 'forward_view' mark.hash_id %}" />
+            <input class="copy-text" type="text" id="website" value="http://{{ request.get_host }}{% url 'forward_view' bookmark.hash_id %}" />
             <button class="copy-btn" data-copytarget="#website">copy</button>
         </td>
         <td>{{ bookmark.description }}</td>

@@ -4,11 +4,15 @@
 
 {% block content %}
     <h1 class="text-center">Shorten a Link</h1>
-    <div class="">
-        <form action="" method="post" class="">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value="Sign Up">
-        </form>
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <form action="" method="post" class="text-center">
+                {% csrf_token %}
+                <table class="table table-bordered">
+                {{ form.as_table }}
+                </table>
+                <input class="btn btn-default" type="submit" value="Submit">
+            </form>
+        </div>
     </div>
 {% endblock %}

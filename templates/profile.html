@@ -6,18 +6,16 @@
 {% endblock %}
 
 {% block content %}
-    <h1>{{ user }}'s Saved Bookmarks</h1>
+    <h1>Saved Bookmarks</h1>
     <table class="table table-condensed sm-row-3">
         <tr>
             <th>Title</th>
             <th>Original Link</th>
             <th>Short Link</th>
             <th>Click Hist</th>
-            {% if request.user.is_authenticated %}
             <th></th>
-            <th></th>
-            {% endif %}
-        </tr>
+            <td></td>
+                    </tr>
     {% for mark in bookmark %}
         <tr>
             <td>{{ mark.title }}</td>
@@ -28,11 +26,11 @@
             </td>
             <td><a href="{% url 'click_view' mark.id %}">{{ mark.count }}</a></td>
 {#            {% if request.user.is_authenticated %}#}
-            {% if request.user = user %}
-            <td><a class="btn" href="{% url 'edit_bookmark_view' mark.id %}">Edit</a></td>
-            <td><a class="btn btn-danger" href="{% url 'delete_bookmark_view' mark.id %}">Delete</a></td>
+            {% if mark.user = request.user %}
+                <td><a class="btn" href="{% url 'edit_bookmark_view' mark.id %}">Edit</a></td>
+                <td><a class="btn btn-danger" href="{% url 'delete_bookmark_view' mark.id %}">Delete</a></td>
             {% else %}
-                <td></td>
+                <td>{{ mark.user }}</td>
                 <td></td>
             {% endif %}
 {#            {% endif %}#}
