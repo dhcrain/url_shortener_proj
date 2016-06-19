@@ -16,9 +16,10 @@
     {# MenuBar #}
     <ul class="nav nav-tabs navbar-fixed-top">
         <li role="presentation"><a href="{% url 'index_view' %}">Home</a></li>
+        <li role="presentation"><a href="{% url 'user_view' %}">See Bookmarks by User</a></li>
 {#        <li role="presentation"><a href="{% url 'bookmark_view' %}">All Bookmarks</a></li>#}
         {% if request.user.is_authenticated %}
-            <li role="presentation"><a href="{% url 'profile_view' %}">Your Bookmarks</a></li>
+            <li role="presentation"><a href="{% url 'user_profile_view' user.id %}">Your Bookmarks</a></li>
             <li role="presentation"><a href="{% url 'shorten_link' %}">Bookmark a Link</a></li>
             <li role="presentation"><a href="{% url 'logout_view' %}">Log Out</a></li>
             <li role="presentation" class="disabled pull-right"><a href="#">Welcome {{ request.user }}</a></li>

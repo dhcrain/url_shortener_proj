@@ -4,6 +4,7 @@
 
 {% block content %}
     <h1>Short it up!</h1>
+    <a href="{% url 'user_view' %}">See What Other Users are Bookmarking</a>
     <hr>
     <h2>All Saved Bookmarks</h2>
     <table class="table table-condensed">
@@ -17,12 +18,14 @@
         <tr>
             <td>{{ mark.title }}</td>
             <td><a href="{% url 'forward_view' mark.hash_id %}" target="_blank" >{{ mark.url }}</a></td>
-            <td><input type="text" value="{{ request.get_host }}{% url 'forward_view' mark.hash_id %}"></td>
+            <td>
+                <input class="copy-text" type="text" id="website" value="http://{{ request.get_host }}{% url 'forward_view' mark.hash_id %}" />
+                <button class="copy-btn" data-copytarget="#website">copy</button>
+            </td>
             <td><a href="{% url 'click_view' mark.id %}">{{ mark.count }}</a></td>
         </tr>
     {% endfor %}
     </table>
-
 {#    https://docs.djangoproject.com/en/1.9/topics/class-based-views/mixins/#using-singleobjectmixin-with-listview#}
     <nav>
         <ul class="pager">

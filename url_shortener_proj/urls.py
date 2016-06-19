@@ -23,10 +23,11 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.IndexView.as_view(), name='index_view'),
     url(r'^signup/$', views.SignUpView.as_view(), name='sign_up_view'),
-    url(r'^login/$', login, name='login_view'),     # https://docs.djangoproject.com/en/1.9/topics/auth/default/#how-to-log-a-user-in
+    url(r'^accounts/login/$', login, name='login_view'),     # https://docs.djangoproject.com/en/1.9/topics/auth/default/#how-to-log-a-user-in
     url(r'^logout/$', logout, {'next_page': 'index_view'}, name='logout_view'),
     # url(r'^all_bookmarks/$', views.BookmarkView.as_view(), name='bookmark_view'),
     url(r'^users/$', views.UserView.as_view(), name='user_view'),
+    url(r'^accounts/profile/(?P<pk>\d+)$', views.UserProfileView.as_view(), name='user_profile_view'),
     url(r'^accounts/profile/$', views.ProfileView.as_view(), name='profile_view'),
     url(r'^accounts/profile/hist/(?P<pk>\d+)$', views.ClickView.as_view(), name='click_view'),
     url(r'^accounts/profile/edit_link/(?P<pk>\d+)/$', views.EditBookmark.as_view(), name='edit_bookmark_view'),

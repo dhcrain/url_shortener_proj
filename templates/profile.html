@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Your Saved Bookmarks</h1>
+    <h1>{{ user }}'s Saved Bookmarks</h1>
     <table class="table table-condensed sm-row-3">
         <tr>
             <th>Title</th>
@@ -27,10 +27,15 @@
                 <button class="copy-btn" data-copytarget="#website">copy</button>
             </td>
             <td><a href="{% url 'click_view' mark.id %}">{{ mark.count }}</a></td>
-            {% if request.user.is_authenticated %}
+{#            {% if request.user.is_authenticated %}#}
+            {% if request.user = user %}
             <td><a class="btn" href="{% url 'edit_bookmark_view' mark.id %}">Edit</a></td>
             <td><a class="btn btn-danger" href="{% url 'delete_bookmark_view' mark.id %}">Delete</a></td>
+            {% else %}
+                <td></td>
+                <td></td>
             {% endif %}
+{#            {% endif %}#}
         </tr>
     {% endfor %}
     </table>

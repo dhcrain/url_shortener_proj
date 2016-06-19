@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}Users{% endblock %}
+
+{% block content %}
+    <h1>See what other users are bookmarking</h1>
+    <ul>
+    {% for user in user_list %}
+        <li><a href="{% url 'user_profile_view' user.id %}">{{ user }}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}

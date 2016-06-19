@@ -14,7 +14,7 @@ from short_app.models import Bookmark, Click
 class IndexView(ListView):
     model = Bookmark
     template_name = 'index.html'
-    paginate_by = 3
+    paginate_by = 5
 
 
 class SignUpView(CreateView):
@@ -77,6 +77,7 @@ class EditBookmark(LoginRequiredMixin, UpdateView):
 class LinkDelete(LoginRequiredMixin, DeleteView):
     model = Bookmark
     success_url = '/accounts/profile/'
+    permission_denied_message = 'Sorry only the Bookmarks creator can edit this'
 
     def get_object(self, queryset=None):
         link = super(LinkDelete, self).get_object()
@@ -106,3 +107,13 @@ class BookmarkView(ListView):
 class UserView(ListView):
     model = User
 
+
+class UserProfileView(ListView):
+    model = Bookmark
+    template_name = 'profile.html'
+
+    def get_context_data(self, **kwargs):
+        user_id = self.kwargs.get('pk', None)  # gets user_id
+        context = super().get_context_data(**kwargs)  # I have no idea what this does
+        context["bookmark"] = Bookmark.objects.filter(user_id=user_id)
+        return context
