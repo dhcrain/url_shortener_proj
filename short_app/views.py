@@ -9,6 +9,7 @@ from django.views.generic import TemplateView, CreateView, RedirectView, UpdateV
 from django.views.generic.list import MultipleObjectMixin
 from hashids import Hashids
 from short_app.models import Bookmark, Click
+from django.core.urlresolvers import reverse_lazy
 
 
 class IndexView(ListView):
@@ -20,7 +21,9 @@ class IndexView(ListView):
 class SignUpView(CreateView):
     model = User
     form_class = UserCreationForm
-    success_url = '/login/'
+    # success_url = '/login/'
+    success_url = reverse_lazy('login_view')
+
 
 
 class ProfileView(ListView):
